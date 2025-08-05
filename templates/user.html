@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نظام الــــبلدية الالكتروني</title>
+ 
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+
+  <!-- ملف التنسيقات -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- ✅ الشريط العلوي -->
+     <div class="top-bar-outline"></div>
+    <div class="top-bar">
+     
+
+      <div class="button map">
+        <div class="text">الخريطة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/mapICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button help">
+        <div class="text">المساعدة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/helpICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button logout">
+        <div class="text">خروج</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/offonnICON.png" class="top-icon" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ شريط العنوان -->
+    <div class="header-bar">
+      <!-- أيقونات اليسار -->
+      <div class="left-icons">
+        <img src="static/icons/errorICON.png" class="header-icon" />
+        <img src="static/icons/fileICON.png" class="header-icon" />
+        <img src="static/icons/reloadICON.png" class="header-icon" />
+        <img src="static/icons/settingsICON.png" class="header-icon" />
+        <img src="static/icons/messageICON.png" class="header-icon" />
+        <img src="static/icons/ringICON.png" class="header-icon" />
+      </div>
+
+      <!-- اسم المستخدم -->
+      <div class="user-and-right-icon">
+       
+        <div class="user-name">الهنوف سالم رشيد الموسى</div>
+         <img src="static/icons/personICON.png" class="header-icon" />
+      </div>
+
+      <!-- أيقونة الرئيسية -->
+      <a href="/index" class="home-icon-container">
+      <div class="home-icon-container">
+        <div class="home-text">الرئيسية</div>
+        <img src="static/icons/homeICON.png" class="header-icon" />
+      </div>
+    </div>
+  </a>
+
+    <!-- ✅ الشعار والعنوان -->
+    <img src="static/images/mainLogo.jpg" class="logo" />
+    <div class="system-title">نظام البلدية الإلكتروني</div>
+
+
+    <!-- ✅ الصندوق الرئيسي -->
+ <div class="main-box">
+  <!-- ------------------------- عنوان دليل التحويلات الداخلية ------------------------- -->
+      <div class="guide-title">
+        دليل التحويلات الداخلية
+      </div>   
+      <div class="filters-container">
+        <div class="filter-row">
+          <!-- رقم التحويلة -->
+          <div class="filter-input-box">
+            <input type="text" id="filterNumber" class="filter-input" placeholder="رقم التحويلة">
+            <img src="static/icons/filter-icon.png" class="filter-icon" />
+          </div>
+      
+          <!-- مسمى التحويلة -->
+          <div class="filter-input-box">
+            <input type="text" id="filterTitle" class="filter-input" placeholder="مسمى التحويلة">
+            <img src="static/icons/filter-icon.png" class="filter-icon" />
+          </div>
+      
+<!-- الإدارة -->
+<select id="filterDepartment" name="department" data-label="الإدارة" class="filter-select">
+  <option value="">الإدارة</option>
+</select>
+
+<!-- الإدارة الفرعية -->
+<select id="filterSubDepartment" name="sub_department" data-label="الإدارة الفرعية" class="filter-select">
+  <option value="">الإدارة الفرعية</option>
+</select>
+
+<!-- اسم الموظف -->
+<select id="filterEmployee" name="employee_name" data-label="اسم الموظف" class="filter-select">
+  <option value="">اسم الموظف</option>
+</select>
+
+      
+          <!-- زر البحث -->
+          <div id="searchBtn" class="search-button">
+            <img src="static/icons/searchicon.png" alt="بحث">
+          </div>
+        </div>
+      </div>
+      
+  
+
+    
+  <!-- ------------------------- جدول التحويلات ------------------------- -->
+    <!-- عنوان نتائج  -->
+    <div class="results2-title">
+    نتائج البحث
+    </div>
+    <div id="printBtn" class="print-button2">
+    <div class="print-text">طباعة</div>
+    </div>
+    <div id="showall" class="showall">
+    <div class="showall-text">عرض كل التحويلات</div>
+    </div>
+
+  <!-- زر تحديد الكل -->
+    <button id="selectAllBtn" class="select-all-button2" disabled onclick="toggleSelectAll(this)">
+    تحديد الكل
+    </button>
+    <div class="results2-container">
+    
+  <div class="table-scroll2-wrapper">
+  <table class="transfers2-table">
+    
+    <thead>
+      <tr>
+        <th></th> <!-- عمود التحديد -->
+        <th>رقم التحويلة</th>
+        <th>مسمى التحويلة</th>
+        <th>اسم الموظف</th>
+        <th>الإدارة</th>
+        <th>الإدارة الفرعية</th>
+        <th>حالة التحويلة</th>
+        <th>تاريخ الإنشاء</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for conv in conversions %}
+      <tr>
+        <td><input type="checkbox" class="row-checkbox" onchange="toggleActions(this)" /></td>
+        <td>{{ conv['conversion_number'] }}</td>
+        <td>{{ conv['conversion_title'] }}</td>
+        <td>{{ conv['employee_name'] }}</td>
+        <td>{{ conv['department'] }}</td>
+        <td>{{ conv['sub_department'] }}</td>
+        <td>
+          <span class="status {{ 'active' if conv['conversion_status'] == 'نشطة' else 'inactive' }}">
+            {{ conv['conversion_status'] }}
+          </span>
+        </td>
+        <td>{{ conv['creation_date'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    
+ 
+  </table> 
+</div>
+
+
+
+
+    </div>
+  <!-- ------------------------- اخر عمليات البحث------------------------- -->
+
+    <div class="lastresults-container">
+
+        <!-- العنوان -->
+        <div class="lastresults-title">آخر عمليات البحث</div>
+          <table class="transfers2-table">
+            
+            <thead>
+              <tr>
+                <th>رقم التحويلة</th>
+                <th>مسمى التحويلة</th>
+                <th>اسم الموظف</th>
+                <th>الإدارة</th>
+                <th>الإدارة الفرعية</th>
+                <th>حالة التحويلة</th>
+                <th>تاريخ الإنشاء</th>
+              </tr>
+            </thead>
+            <tbody id="last-search-body">
+  <!-- هنا تنضاف النتائج من الجافاسكربت -->
+</tbody>
+        </table> 
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+      
+ </div>
+
+    <!-- ✅ القائمة الجانبية -->
+    <div class="sidebar">
+        <div class="sidebar-item">بريد <img src="static/icons/sidebaricon.png" alt="بريد" class="icon" /></div>
+        <div class="sidebar-item">الموارد البشرية <img src="static/icons/sidebaricon.png" alt="الموارد البشرية" class="icon" /></div>
+        <div class="sidebar-item">الإعدادات <img src="static/icons/sidebaricon.png" alt="الإعدادات" class="icon" /></div>
+        <div class="sidebar-item">لوحة التحكم <img src="static/icons/sidebaricon.png" alt="لوحة التحكم" class="icon" /></div>
+        <div class="sidebar-item">نظام البلاغات و الطلبات <img src="static/icons/sidebaricon.png" alt="نظام البلاغات و الطلبات" class="icon" /></div>
+        <a href="/admin" class="sidebar-link">
+  
+        <div class="sidebar-item">نظام التحويلات <img src="static/icons/sidebaricon.png" alt="نظام التحويلات" class="icon" /></div>
+      
+        </a>
+        <a href="/user" class="sidebar-link">
+            <div class="sidebar-item">أنظمة أخرى <img src="static/icons/sidebaricon.png" alt="أنظمة أخرى" class="icon" /></div>
+        </a>
+          
+        <div class="sidebar-item">المتابعة <img src="static/icons/sidebaricon.png" alt="المتابعة" class="icon" /></div>
+        <div class="sidebar-item">المعلومات المكانية <img src="static/icons/sidebaricon.png" alt="المعلومات المكانية" class="icon" /></div>
+      </div>
+  
+      <!-- ✅ صندوق التاريخ والوقت -->
+      <div class="date-box">
+        <div class="day">الخميس 03</div>
+        <div class="month">يوليو 2025</div>
+        <div class="time-box">
+          <div class="time">11 : 19 ص</div>
+        </div>
+      </div>
+  
+    </div>
+    <script src="static/scripts/toggle-actions.js"></script>
+  
+  </body>
+  
+  </html>

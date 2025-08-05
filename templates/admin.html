@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>صفحة المستخدم</title>
+
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+
+  <!-- ملف التنسيقات -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+ 
+<body>
+
+  <div class="container">
+
+    <!-- ✅ الشريط العلوي -->
+     <div class="top-bar-outline"></div>
+    <div class="top-bar">
+     
+
+      <div class="button map">
+        <div class="text">الخريطة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/mapICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button help">
+        <div class="text">المساعدة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/helpICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button logout">
+        <div class="text">خروج</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/offonnICON.png" class="top-icon" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ شريط العنوان -->
+    <div class="header-bar">
+      <!-- أيقونات اليسار -->
+      <div class="left-icons">
+        <img src="static/icons/errorICON.png" class="header-icon" />
+        <img src="static/icons/fileICON.png" class="header-icon" />
+        <img src="static/icons/reloadICON.png" class="header-icon" />
+        <img src="static/icons/settingsICON.png" class="header-icon" />
+        <img src="static/icons/messageICON.png" class="header-icon" />
+        <img src="static/icons/ringICON.png" class="header-icon" />
+      </div>
+
+      <!-- اسم المستخدم -->
+      <div class="user-and-right-icon">
+       
+        <div class="user-name">الهنوف سالم رشيد الموسى</div>
+         <img src="static/icons/personICON.png" class="header-icon" />
+      </div>
+
+      <!-- أيقونة الرئيسية -->
+      <a href="/index" class="home-icon-container">
+      <div class="home-icon-container">
+        <div class="home-text">الرئيسية</div>
+        <img src="static/icons/homeICON.png" class="header-icon" />
+      </div>
+    </div>
+  </a>
+
+    <!-- ✅ الشعار والعنوان -->
+    <img src="static/images/mainLogo.jpg" class="logo" />
+    <div class="system-title">نظام البلدية الإلكتروني</div>
+
+
+    <!-- ✅ الصندوق الرئيسي -->
+    <div class="main-box">
+      <!-- ------------------------- عنوان دليل التحويلات الداخلية ------------------------- -->
+      <div class="guide-title">
+        دليل التحويلات الداخلية
+      </div>
+
+      <a href="/add" class="add-button">
+        <span class="add-button-text">إضافة تحويلة جديدة</span>
+        <div class="add-button-icon">
+          <img src="static/icons/plusicon.png" alt="plus icon" class="add-icon-image">
+        </div>
+      </a>
+      
+
+      
+<div class="filters-container"> 
+  <div class="filter-row">
+    <!-- رقم التحويلة -->
+    <div class="filter-input-box">
+      <input type="text" id="filterNumber" class="filter-input" placeholder="رقم التحويلة">
+      <img src="static/icons/filter-icon.png" class="filter-icon" />
+    </div>
+
+    <!-- مسمى التحويلة -->
+    <div class="filter-input-box">
+      <input type="text" id="filterTitle" class="filter-input" placeholder="مسمى التحويلة">
+      <img src="static/icons/filter-icon.png" class="filter-icon" />
+    </div>
+
+    <!-- الإدارة -->
+    <select id="filterDepartment" name="department" data-label="الإدارة" class="filter-select">
+      <option value="">الإدارة</option>
+    </select>
+
+    <!-- الإدارة الفرعية -->
+    <select id="filterSubDepartment" name="sub_department" data-label="الإدارة الفرعية" class="filter-select">
+      <option value="">الإدارة الفرعية</option>
+    </select>
+
+    <!-- اسم الموظف -->
+    <select id="filterEmployee" name="employee_name" data-label="اسم الموظف" class="filter-select">
+      <option value="">اسم الموظف</option>
+    </select>
+
+    <!-- زر البحث -->
+     <div id="searchBtn" class="search-button">
+            <img src="static/icons/searchicon.png" alt="بحث">
+          </div>
+        </div>
+      </div>
+
+<div class="edit-button disabled-button" id="editBtn" style="cursor:pointer;">
+  <img src="static/icons/editicon.png" alt="Edit Icon" class="edit-icon" />
+  <span class="edit-text">تعديل</span>
+</div>
+
+
+<div id="deleteBtn" class="delete-button disabled-button">
+  <img src="static/icons/deleteicon.png" alt="Delete Icon" class="delete-icon" />
+  <span class="delete-text">حذف</span>
+</div>
+<!-- ------------------------- جدول التحويلات ------------------------- -->
+<div class="results-title">
+  نتائج البحث
+</div>
+
+<div id="adminPrintBtn" class="print-button " >
+  <div class="print-text"> 
+  طباعة</div>
+
+</div>
+
+
+<!-- زر تحديد الكل -->
+<button id="selectAllBtn" class="select-all-button" disabled onclick="toggleSelectAll(this)">
+  تحديد الكل
+</button>
+
+<div class="results-container">
+  <div class="table-scroll2-wrapper">
+    <table class="transfers-table">
+      <thead>
+        <tr>
+          <th></th> <!-- عمود التحديد -->
+          <th>رقم التحويلة</th>
+          <th>مسمى التحويلة</th>
+          <th>اسم الموظف</th>
+          <th>الإدارة</th>
+          <th>الإدارة الفرعية</th>
+          <th>حالة التحويلة</th>
+          <th>تاريخ الإنشاء</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for conv in conversions %}
+      <tr>
+        <td><input type="checkbox" class="row-checkbox" onchange="toggleActions(this)" /></td>
+        <td>{{ conv['conversion_number'] }}</td>
+        <td>{{ conv['conversion_title'] }}</td>
+        <td>{{ conv['employee_name'] }}</td>
+        <td>{{ conv['department'] }}</td>
+        <td>{{ conv['sub_department'] }}</td>
+        <td>
+          <span class="status {{ 'active' if conv['conversion_status'] == 'نشطة' else 'inactive' }}">
+            {{ conv['conversion_status'] }}
+          </span>
+        </td>
+        <td>{{ conv['creation_date'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+   
+    </table>
+  </div>
+</div>
+
+
+
+<div class="notifications-container">
+
+  <!-- العنوان -->
+  <div class="notifications-title">آخر العمليات</div>
+  <div id="notifications-area">  </div>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+      
+    </div>
+
+    <!-- ✅ القائمة الجانبية -->
+    <div class="sidebar">
+      <div class="sidebar-item">بريد <img src="static/icons/sidebaricon.png" alt="بريد" class="icon" /></div>
+      <div class="sidebar-item">الموارد البشرية <img src="static/icons/sidebaricon.png" alt="الموارد البشرية" class="icon" /></div>
+      <div class="sidebar-item">الإعدادات <img src="static/icons/sidebaricon.png" alt="الإعدادات" class="icon" /></div>
+      <div class="sidebar-item">لوحة التحكم <img src="static/icons/sidebaricon.png" alt="لوحة التحكم" class="icon" /></div>
+      <div class="sidebar-item">نظام البلاغات و الطلبات <img src="static/icons/sidebaricon.png" alt="نظام البلاغات و الطلبات" class="icon" /></div>
+      <a href="/admin" class="sidebar-link">
+
+      <div class="sidebar-item">نظام التحويلات <img src="static/icons/sidebaricon.png" alt="نظام التحويلات" class="icon" /></div>
+    
+      </a>
+      <a href="/user" class="sidebar-link">
+        <div class="sidebar-item">أنظمة أخرى <img src="static/icons/sidebaricon.png" alt="أنظمة أخرى" class="icon" /></div>
+      </a>
+            <div class="sidebar-item">المتابعة <img src="static/icons/sidebaricon.png" alt="المتابعة" class="icon" /></div>
+      <div class="sidebar-item">المعلومات المكانية <img src="static/icons/sidebaricon.png" alt="المعلومات المكانية" class="icon" /></div>
+    </div>
+
+    <!-- ✅ صندوق التاريخ والوقت -->
+    <div class="date-box">
+      <div class="day">الخميس 03</div>
+      <div class="month">يوليو 2025</div>
+      <div class="time-box">
+        <div class="time">11 : 19 ص</div>
+      </div>
+    </div>
+
+  </div>
+  <script src="static/scripts/toggle-actions.js"></script>
+<script>
+  
+function toggleAdminPrintButton() {
+  const checked = document.querySelectorAll('.row-checkbox:checked').length > 0;
+  const printBtn = document.getElementById('adminPrintBtn');
+  if (checked) {
+    printBtn.classList.remove('disabled');
+    printBtn.disabled = false;
+  } else {
+    printBtn.classList.add('disabled');
+    printBtn.disabled = true;
+  }
+}
+
+// تفعيل الدالة لكل checkbox عند تغير الاختيار
+document.querySelectorAll('.row-checkbox').forEach(chk => {
+  chk.addEventListener('change', toggleAdminPrintButton);
+});
+
+document.getElementById('adminPrintBtn').addEventListener('click', () => {
+  const printBtn = document.getElementById('adminPrintBtn');
+  if (printBtn.classList.contains('disabled') || printBtn.disabled) return;
+
+  const checkedRows = Array.from(document.querySelectorAll('.row-checkbox:checked'))
+    .map(chk => {
+      const tr = chk.closest('tr');
+      return {
+        number: tr.children[1].textContent.trim(),
+        title: tr.children[2].textContent.trim(),
+        employee: tr.children[3].textContent.trim(),
+        department: tr.children[4].textContent.trim(),
+        subDepartment: tr.children[5].textContent.trim(),
+        status: tr.children[6].textContent.trim(),
+        date: tr.children[7].textContent.trim(),
+      };
+    });
+
+  if (checkedRows.length === 0) {
+    alert('الرجاء اختيار تحويلة واحدة على الأقل للطباعة.');
+    return;
+  }
+
+  let printContent = `
+    <h2>التحويلات المختارة للطباعة</h2>
+    <table border="1" style="width:100%;border-collapse:collapse;text-align:center;">
+      <thead>
+        <tr>
+          <th>رقم التحويلة</th>
+          <th>مسمى التحويلة</th>
+          <th>اسم الموظف</th>
+          <th>الإدارة</th>
+          <th>الإدارة الفرعية</th>
+          <th>حالة التحويلة</th>
+          <th>تاريخ الإنشاء</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+  checkedRows.forEach(conv => {
+    printContent += `
+      <tr>
+        <td>${conv.number}</td>
+        <td>${conv.title}</td>
+        <td>${conv.employee}</td>
+        <td>${conv.department}</td>
+        <td>${conv.subDepartment}</td>
+        <td>${conv.status}</td>
+        <td>${conv.date}</td>
+      </tr>
+    `;
+  });
+
+  printContent += '</tbody></table>';
+
+  const printWindow = window.open('', '', 'width=900,height=600');
+  printWindow.document.write(`<html><head><title>طباعة التحويلات</title></head><body>${printContent}</body></html>`);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+  printWindow.close();
+});
+</script>
+<script>
+  document.getElementById('editBtn').addEventListener('click', () => {
+    const checkedBoxes = document.querySelectorAll('.row-checkbox:checked');
+
+    if (checkedBoxes.length === 0) {
+      alert('الرجاء اختيار تحويلة واحدة للتعديل.');
+      return;
+    }
+    if (checkedBoxes.length > 1) {
+      alert('يرجى اختيار تحويلة واحدة فقط للتعديل.');
+      return;
+    }
+
+    const tr = checkedBoxes[0].closest('tr');
+const type = tr.getAttribute('data-type') || 'عامة';  // أو قراءتها من عمود مخفي إذا موجود
+
+const data = {
+  number: tr.children[1].textContent.trim(),
+  title: tr.children[2].textContent.trim(),
+  employee: tr.children[3].textContent.trim(),
+  department: tr.children[4].textContent.trim(),
+  subDepartment: tr.children[5].textContent.trim(),
+  status: tr.children[6].textContent.trim(),
+  date: tr.children[7].textContent.trim(),
+  type: type,
+  is_edit: 'true'
+};
+
+    
+    // نفتح صفحة الإضافة مع تمرير البيانات عبر Query Params
+    const params = new URLSearchParams(data).toString();
+    window.location.href = `/add?${params}`;
+  });
+</script>
+<script>
+  function toggleActions() {
+    const anyChecked = document.querySelectorAll('.row-checkbox:checked').length > 0;
+  
+    const editBtn = document.querySelector('.edit-button');
+    const deleteBtn = document.querySelector('.delete-button');
+    const printBtn = document.getElementById('adminPrintBtn');
+    const selectAllBtn = document.getElementById('selectAllBtn');
+  
+    if (editBtn && deleteBtn) {
+      if (anyChecked) {
+        editBtn.classList.remove('disabled-button');
+        deleteBtn.classList.remove('disabled-button');
+      } else {
+        editBtn.classList.add('disabled-button');
+        deleteBtn.classList.add('disabled-button');
+      }
+    }
+  
+    if (printBtn) {
+      if (anyChecked) {
+        printBtn.classList.remove('disabled');
+      } else {
+        printBtn.classList.add('disabled');
+      }
+    }
+  
+    if (selectAllBtn) {
+      if (anyChecked) {
+        selectAllBtn.classList.remove('disabled-button');
+        selectAllBtn.disabled = false;
+      } else {
+        selectAllBtn.classList.add('disabled-button');
+        selectAllBtn.disabled = true;
+      }
+      updateSelectAllButtonState();
+    }
+  }
+  // دالة تربط الأحداث على مربعات التحديد في الجدول
+  function attachCheckboxListeners() {
+    document.querySelectorAll('.row-checkbox').forEach(chk => {
+      chk.removeEventListener('change', toggleActions);
+      chk.addEventListener('change', toggleActions);
+    });
+  }
+
+  // تحميل الفلاتر من API الإدمن
+  async function loadFilterOptions() {
+    try {
+      const response = await fetch('/admin/api/filters');
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+
+      fillSelect('#filterDepartment', data.department);
+      fillSelect('#filterSubDepartment', data.sub_department);
+      fillSelect('#filterEmployee', data.employee_name);
+    } catch (error) {
+      console.error('فشل في تحميل الفلاتر:', error);
+    }
+  }
+
+  // تعبئة القوائم المنسدلة للفلاتر
+  function fillSelect(selector, options) {
+    const select = document.querySelector(selector);
+    if (!select) return;
+
+    const firstOption = select.querySelector('option');
+    select.innerHTML = '';
+    if (firstOption) select.appendChild(firstOption);
+
+    options.forEach(opt => {
+      if (opt) {
+        const option = document.createElement('option');
+        option.value = opt;
+        option.textContent = opt;
+        select.appendChild(option);
+      }
+    });
+  }
+
+  // تحميل التحويلات من API الإدمن
+  async function loadConversions() {
+    const number = document.getElementById('filterNumber').value;
+    const title = document.getElementById('filterTitle').value;
+    const department = document.getElementById('filterDepartment').value;
+    const subDepartment = document.getElementById('filterSubDepartment').value;
+    const employee = document.getElementById('filterEmployee').value;
+
+    const params = new URLSearchParams({
+      number,
+      title,
+      department,
+      sub_department: subDepartment,
+      employee_name: employee
+    });
+
+    try {
+      const response = await fetch(`/admin/api/conversions?${params.toString()}`);
+      const result = await response.json();
+
+      const tableBody = document.querySelector('.transfers-table tbody');
+      tableBody.innerHTML = '';
+
+      result.conversions.forEach(conv => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td><input type="checkbox" class="row-checkbox" onchange="toggleActions()" /></td>
+          <td>${conv.conversion_number}</td>
+          <td>${conv.conversion_title}</td>
+          <td>${conv.employee_name}</td>
+          <td>${conv.department}</td>
+          <td>${conv.sub_department}</td>
+          <td><span class="status ${conv.conversion_status === 'نشطة' ? 'active' : 'inactive'}">${conv.conversion_status}</span></td>
+          <td>${conv.creation_date}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+      attachCheckboxListeners();
+      toggleActions();
+    } catch (error) {
+      console.error('فشل في تحميل التحويلات:', error);
+    }
+  }
+
+  // زر البحث في فلتر الأدمن
+  document.querySelector('.search-button').addEventListener('click', async () => {
+    const number = document.getElementById('filterNumber').value.trim();
+    const title = document.getElementById('filterTitle').value.trim();
+    const department = document.getElementById('filterDepartment').value;
+    const subDepartment = document.getElementById('filterSubDepartment').value;
+    const employee = document.getElementById('filterEmployee').value;
+
+    const noFiltersUsed = !number && !title && !department && !subDepartment && !employee;
+
+    if (noFiltersUsed) {
+      alert('الرجاء اختيار فلتر واحد على الأقل أو كتابة قيمة للبحث.');
+      return;
+    }
+
+    document.querySelector('.results-container').style.display = 'block';
+    await loadConversions();
+  });
+
+  // أول ما تفتح الصفحة: تحميل الفلاتر وظهور التحويلات مباشرة
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadFilterOptions();
+    document.querySelector('.results-container').style.display = 'block';
+    await loadConversions();
+  });
+
+
+
+  
+
+</script>
+
+<script>await fetch('api/delete', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ conversion_numbers: selectedNumbers })
+});</script>
+<script>
+  document.getElementById('deleteBtn').addEventListener('click', async () => {
+    const checkboxes = document.querySelectorAll('.row-checkbox:checked');
+    if (checkboxes.length === 0) {
+      alert("يرجى اختيار تحويلة واحدة على الأقل للحذف.");
+      return;
+    }
+
+    if (!confirm("هل أنت متأكد من حذف التحويلات المحددة؟")) return;
+
+    const conversionNumbers = Array.from(checkboxes).map(cb => {
+      return cb.closest('tr').children[1].textContent.trim();
+    });
+
+    try {
+      const res = await fetch('/api/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conversion_numbers: conversionNumbers })
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        checkboxes.forEach(cb => {
+          cb.closest('tr').remove();
+        });
+
+        // إعادة تحميل الإشعارات
+        const event = new Event("DOMContentLoaded");
+        document.dispatchEvent(event);
+
+        alert("تم حذف التحويلات بنجاح.");
+      } else {
+        alert("فشل الحذف: " + result.message);
+      }
+
+    } catch (err) {
+      console.error("فشل في الحذف:", err);
+      alert("حدث خطأ أثناء عملية الحذف.");
+    }
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch('/api/logs');  // اضفت الشرطة / هنا
+      const logs = await res.json();
+      const container = document.getElementById('notifications-area');
+      container.innerHTML = '';
+
+      logs.forEach(log => {
+        let colorClass = '';
+        let icon = '';
+        let text = '';
+
+        switch (log.action) {
+          case 'create':
+            colorClass = 'green';
+            icon = 'static/icons/newnotfiicon.png';
+            text = `تم إنشاء تحويلة جديدة ${log.number}`;
+            break;
+          case 'edit':
+            colorClass = 'blue';
+            icon = 'static/icons/editnotifiicon.png';  // عدلت المسار ليكون متوافق
+            text = `تم تعديل تحويلة ${log.number}`;
+            break;
+          case 'delete':
+            colorClass = 'red';
+            icon = 'static/icons/deletenotifiicon.png';
+            text = `تم حذف تحويلة ${log.number}`;
+            break;
+        }
+
+        const notif = `
+          <div class="notification ${colorClass}">
+            <div class="text">${text}</div>
+            <img src="${icon}" alt="icon" class="icon" />
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', notif);
+      });
+
+    } catch (err) {
+      console.error("فشل في تحميل الإشعارات:", err);
+    }
+  });
+</script>
+
+
+</body>
+
+</html>

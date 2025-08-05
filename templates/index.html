@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نظام الــــبلدية الالكتروني</title>
+
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+
+  <!-- ملف التنسيقات -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+ 
+<body>
+
+  <div class="container">
+
+    <!-- ✅ الشريط العلوي -->
+     <div class="top-bar-outline"></div>
+    <div class="top-bar">
+     
+
+      <div class="button map">
+        <div class="text">الخريطة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/mapICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button help">
+        <div class="text">المساعدة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/helpICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button logout">
+        <div class="text">خروج</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/offonnICON.png" class="top-icon" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ شريط العنوان -->
+    <div class="header-bar">
+      <!-- أيقونات اليسار -->
+      <div class="left-icons">
+        <img src="static/icons/errorICON.png" class="header-icon" />
+        <img src="static/icons/fileICON.png" class="header-icon" />
+        <img src="static/icons/reloadICON.png" class="header-icon" />
+        <img src="static/icons/settingsICON.png" class="header-icon" />
+        <img src="static/icons/messageICON.png" class="header-icon" />
+        <img src="static/icons/ringICON.png" class="header-icon" />
+      </div>
+
+      <!-- اسم المستخدم -->
+      <div class="user-and-right-icon">
+       
+        <div class="user-name">الهنوف سالم رشيد الموسى</div>
+         <img src="static/icons/personICON.png" class="header-icon" />
+      </div>
+
+      <!-- أيقونة الرئيسية -->
+      <div class="home-icon-container">
+        <div class="home-text">الرئيسية</div>
+        <img src="static/icons/homeICON.png" class="header-icon" />
+      </div>
+    </div>
+
+    <!-- ✅ الشعار والعنوان -->
+    <img src="static/images/mainLogo.jpg" class="logo" />
+    <div class="system-title">نظام البلدية الإلكتروني</div>
+
+    <!-- ✅ الصندوق الرئيسي -->
+    <div class="main-box">
+      <div class="cards-container">
+        <!-- البطاقة الأولى -->
+        <div class="card">
+          <div class="card-background"></div>
+          <img class="card-image" src="static/icons/homeicon1.png" alt="الملف الشخصي" />
+          <div class="card-title">الملف الشخصي</div>
+          <div class="card-description">
+            شرح أيقونة الملف الشخصي في الشاشة<br>الرئيسية
+          </div>
+        </div>
+    
+        <!-- البطاقة الثانية -->
+        <div class="card">
+          <div class="card-background"></div>
+          <img class="card-image" src="static/icons/homeicon2.png" alt="الملف الشخصي" />
+          <div class="card-title">الإحصائيات</div>
+          <div class="card-description">
+            الإطلاع على الإحصائيات الخاصة بالمعاملات<br>الواردة و الصادرة من الحساب
+          </div>
+        </div>
+    
+        <!-- البطاقة الثالثة -->
+        <div class="card">
+          <div class="card-background"></div>
+          <img class="card-image" src="static/icons/homeicon3.png" alt="الملف الشخصي" />
+          <div class="card-title">البريد الوارد</div>
+          <div class="card-description">
+            متابعة الرسائل والتنبيهات القادمة إلى<br>البريد الإلكتروني
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- ✅ القائمة الجانبية -->
+    <div class="sidebar">
+      <div class="sidebar-item">بريد <img src="static/icons/sidebaricon.png" alt="بريد" class="icon" /></div>
+      <div class="sidebar-item">الموارد البشرية <img src="static/icons/sidebaricon.png" alt="الموارد البشرية" class="icon" /></div>
+      <div class="sidebar-item">الإعدادات <img src="static/icons/sidebaricon.png" alt="الإعدادات" class="icon" /></div>
+      <div class="sidebar-item">لوحة التحكم <img src="static/icons/sidebaricon.png" alt="لوحة التحكم" class="icon" /></div>
+      <div class="sidebar-item">نظام البلاغات و الطلبات <img src="static/icons/sidebaricon.png" alt="نظام البلاغات و الطلبات" class="icon" /></div>
+      <a href="/admin" class="sidebar-link">
+
+        <div class="sidebar-item">نظام التحويلات <img src="static/icons/sidebaricon.png" alt="نظام التحويلات" class="icon" /></div>
+      
+        </a>      
+        <a href="/user" class="sidebar-link">
+          <div class="sidebar-item">أنظمة أخرى <img src="static/icons/sidebaricon.png" alt="أنظمة أخرى" class="icon" /></div>
+        </a>
+              <div class="sidebar-item">المتابعة <img src="static/icons/sidebaricon.png" alt="المتابعة" class="icon" /></div>
+      <div class="sidebar-item">المعلومات المكانية <img src="static/icons/sidebaricon.png" alt="المعلومات المكانية" class="icon" /></div>
+    </div>
+
+    <!-- ✅ صندوق التاريخ والوقت -->
+    <div class="date-box">
+      <div class="day">الخميس 03</div>
+      <div class="month">يوليو 2025</div>
+      <div class="time-box">
+        <div class="time">11 : 19 ص</div>
+      </div>
+    </div>
+
+  </div>
+  <script src="static/scripts/toggle-actions.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>صفحة المستخدم</title>
+ 
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet" />
+
+  <!-- ملف التنسيقات -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- ✅ الشريط العلوي -->
+     <div class="top-bar-outline"></div>
+    <div class="top-bar">
+     
+
+      <div class="button map">
+        <div class="text">الخريطة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/mapICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button help">
+        <div class="text">المساعدة</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/helpICON.png" class="top-icon" />
+        </div>
+      </div>
+
+      <div class="button logout">
+        <div class="text">خروج</div>
+        <div class="icon-container">
+          <div class="green-circle"></div>
+          <img src="static/icons/offonnICON.png" class="top-icon" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ شريط العنوان -->
+    <div class="header-bar">
+      <!-- أيقونات اليسار -->
+      <div class="left-icons">
+        <img src="static/icons/errorICON.png" class="header-icon" />
+        <img src="static/icons/fileICON.png" class="header-icon" />
+        <img src="static/icons/reloadICON.png" class="header-icon" />
+        <img src="static/icons/settingsICON.png" class="header-icon" />
+        <img src="static/icons/messageICON.png" class="header-icon" />
+        <img src="static/icons/ringICON.png" class="header-icon" />
+      </div>
+
+      <!-- اسم المستخدم -->
+      <div class="user-and-right-icon">
+       
+        <div class="user-name">الهنوف سالم رشيد الموسى</div>
+         <img src="static/icons/personICON.png" class="header-icon" />
+      </div>
+
+      <!-- أيقونة الرئيسية -->
+      <a href="/index" class="home-icon-container">
+      <div class="home-icon-container">
+        <div class="home-text">الرئيسية</div>
+        <img src="static/icons/homeICON.png" class="header-icon" />
+      </div>
+    </div>
+  </a>
+
+    <!-- ✅ الشعار والعنوان -->
+    <img src="static/images/mainLogo.jpg" class="logo" />
+    <div class="system-title">نظام البلدية الإلكتروني</div>
+<!-- ✅ الصندوق الرئيسي -->
+<div class="main-box">
+   <button class="arrow-button" onclick="location.href='/admin'">
+  <img src="static/icons/arrowICON.png" alt="arrow" class="arrow-img">
+</button>
+
+
+            <div class="section-title">إدارة التحويلة</div>
+        
+        <div class="box">
+          <div class="transfer-data">بيانات التحويلة</div>
+          <div class="options-container">
+            <!-- الصف الأول -->
+            <div class="filter-row">
+              <!-- رقم التحويلة -->
+              <div class="filter-input-box">
+                <input type="text" id="transfer_number"class="filter-input" placeholder="رقم التحويلة">
+              </div>
+          
+              <!-- مسمى التحويلة -->
+              <div class="filter-input-box">
+                <input type="text" id="transfer_name" class="filter-input" placeholder="مسمى التحويلة">
+              </div>
+          
+              <!-- الإدارة -->
+              <select id="department"class="filter-select2">
+              </select>
+          
+              <!-- الإدارة الفرعية -->
+              <select id="sub_department"class="filter-select2">
+              </select>
+            </div>
+          
+            <!-- الصف الثاني (اسم الموظف فقط) -->
+            <div class="filter-row">
+              <!-- اسم الموظف -->
+              <select id="employee_name" class="filter-select2">
+              </select>
+            </div>
+          </div>
+          
+          
+        </div>
+               <div class="custom-box">
+                 <div class="transfer-properties">خصائص التحويلة</div>
+                 
+                 <div class="status-container">
+      <div class="status-label">حالة التحويلة</div>
+      <div class="status-options">
+        <div class="status-box active">
+            <img src="static/icons/circleICON.png" alt="status icon" class="status-icon" />
+          <div class="status-text">نشطة</div>
+          
+        </div>
+        <div class="status-box inactive">
+                      <img src="static/icons/circleICON.png" alt="status icon" class="status-icon" />
+
+          <div class="status-text">غير نشطة</div>
+        </div>
+      </div>
+    </div>
+    <div class="type-container">
+      <div class="type-label">نوع التحويلة</div>
+      <div class="type-options">
+        <div class="type-box public">
+          <div class="type-text">عامة</div>
+        </div>
+        <div class="type-box private">
+          <div class="type-text">خاصة</div>
+        </div>
+      </div>
+    </div>
+    
+               </div>
+        <div class="upload-container">
+      <div class="upload-text">
+        قم برفع ملف بصيغة xlsx , .xls , .csv.
+      </div>
+      <div class="upload-button" onclick="document.getElementById('file_upload').click()">  
+        
+
+  <div class="upload-button-text">أختار ملف</div>
+
+</div>
+
+<input type="file" id="file_upload" accept=".xlsx,.xls,.csv" style="display: none;">
+<div id="file-name" class="file-name-display"></div>
+    </div>
+        <input type="hidden" id="is_edit" name="is_edit" value="false" />
+
+        <div class="save-button">
+      <div class="save-button-text">حفظ</div>
+    </div>
+        <div class="cancel-button">
+      <div class="cancel-button-text">إلغاء</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+    <!-- ✅ القائمة الجانبية -->
+    <div class="sidebar">
+        <div class="sidebar-item">بريد <img src="static/icons/sidebaricon.png" alt="بريد" class="icon" /></div>
+        <div class="sidebar-item">الموارد البشرية <img src="static/icons/sidebaricon.png" alt="الموارد البشرية" class="icon" /></div>
+        <div class="sidebar-item">الإعدادات <img src="static/icons/sidebaricon.png" alt="الإعدادات" class="icon" /></div>
+        <div class="sidebar-item">لوحة التحكم <img src="static/icons/sidebaricon.png" alt="لوحة التحكم" class="icon" /></div>
+        <div class="sidebar-item">نظام البلاغات و الطلبات <img src="static/icons/sidebaricon.png" alt="نظام البلاغات و الطلبات" class="icon" /></div>
+        <a href="admin.html" class="sidebar-link">
+  
+        <div class="sidebar-item">نظام التحويلات <img src="static/icons/sidebaricon.png" alt="نظام التحويلات" class="icon" /></div>
+      
+        </a>
+        <a href="user.html" class="sidebar-link">
+          <div class="sidebar-item">أنظمة أخرى <img src="static/icons/sidebaricon.png" alt="أنظمة أخرى" class="icon" /></div>
+        </a>
+              <div class="sidebar-item">المتابعة <img src="static/icons/sidebaricon.png" alt="المتابعة" class="icon" /></div>
+        <div class="sidebar-item">المعلومات المكانية <img src="static/icons/sidebaricon.png" alt="المعلومات المكانية" class="icon" /></div>
+      </div>
+  
+      <!-- ✅ صندوق التاريخ والوقت -->
+      <div class="date-box">
+        <div class="day">الخميس 03</div>
+        <div class="month">يوليو 2025</div>
+        <div class="time-box">
+          <div class="time">11 : 19 ص</div>
+        </div>
+      </div>
+  
+    </div>
+    
+
+    
+    <script>
+  // صفحة الاضافه 
+  // لما يختار المستخدم ملف
+
+  // اضافه الملف وزر الحفظ
+  document.querySelector('.save-button').addEventListener('click', async () => {
+  const transferNumber = document.getElementById('transfer_number').value.trim();
+  const transferName = document.getElementById('transfer_name').value.trim();
+  const department = document.getElementById('department').value.trim();
+  const subDepartment = document.getElementById('sub_department').value.trim();
+  const employeeName = document.getElementById('employee_name').value.trim();
+
+  const statusElement = document.querySelector('.status-box.active .status-text');
+  const status = statusElement ? statusElement.textContent.trim() : '';
+
+  const typeElement = document.querySelector('.type-box.selected .type-text');
+  const type = typeElement ? typeElement.textContent.trim() : '';
+
+  const fileInput = document.getElementById('file_upload');
+
+  // إذا فيه ملف مرفوع، ما نتحقق من الحقول النصية
+  if (fileInput.files.length === 0) {
+    // لا يوجد ملف، إذًا نتحقق من الحقول
+    if (!transferNumber || !transferName || !department || !subDepartment || !employeeName || !status || !type) {
+      alert("يرجى تعبئة جميع الحقول المطلوبة واختيار الحالة والنوع قبل الحفظ.");
+      return;
+    }
+  }
+
+  const formData = new FormData();
+  formData.append('transfer_number', transferNumber);
+  formData.append('transfer_name', transferName);
+  formData.append('department', department);
+  formData.append('sub_department', subDepartment);
+  formData.append('employee_name', employeeName);
+  formData.append('status', status);
+  formData.append('type', type);
+  formData.append('is_edit', document.getElementById('is_edit').value);
+
+  if (fileInput.files.length > 0) {
+    formData.append('file', fileInput.files[0]);
+  }
+
+  try {
+    const response = await fetch('/api/add_transfer', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      alert(result.message);
+      window.location.href = "/add";
+    } else {
+      alert(result.message || "فشل في الحفظ");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("حدث خطأ أثناء الحفظ ⚠️");
+  }
+});
+
+
+  document.querySelectorAll('.status-box').forEach(box => {
+    box.addEventListener('click', () => {
+      document.querySelectorAll('.status-box').forEach(b => b.classList.remove('active'));
+      box.classList.add('active');
+    });
+  });
+
+  // عند اختيار نوع التحويلة
+  document.querySelectorAll('.type-box').forEach(box => {
+    box.addEventListener('click', () => {
+      document.querySelectorAll('.type-box').forEach(b => b.classList.remove('selected'));
+      box.classList.add('selected');
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('file_upload');
+    const fileNameDisplay = document.getElementById('file-name');
+
+    fileInput.addEventListener('change', function () {
+      const fileName = this.files.length > 0 ? this.files[0].name : "لم يتم اختيار ملف";
+      fileNameDisplay.textContent = "الملف المحدد: " + fileName;
+    });
+  });
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const departmentSelect = document.getElementById('department');
+  const subDepartmentSelect = document.getElementById('sub_department');
+  const employeeSelect = document.getElementById('employee_name');
+
+  // تفريغ الخيارات المبدئية
+  departmentSelect.innerHTML = '<option>الإدارة</option>';
+  subDepartmentSelect.innerHTML = '<option>الإدارة الفرعية</option>';
+  employeeSelect.innerHTML = '<option>اسم الموظف</option>';
+
+  try {
+    const response = await fetch('/api/filters');
+    const data = await response.json();
+
+    // تعبئة الفلاتر
+    data.department.forEach(dep => {
+      const option = document.createElement('option');
+      option.textContent = dep;
+      option.value = dep;
+      departmentSelect.appendChild(option);
+    });
+
+    data.sub_department.forEach(sub => {
+      const option = document.createElement('option');
+      option.textContent = sub;
+      option.value = sub;
+      subDepartmentSelect.appendChild(option);
+    });
+
+    data.employee_name.forEach(emp => {
+      const option = document.createElement('option');
+      option.textContent = emp;
+      option.value = emp;
+      employeeSelect.appendChild(option);
+    });
+
+    // ✅ الآن بعد ما تعبت القوائم، ننتقل لقراءة البيانات من الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const number = urlParams.get('number');
+    const title = urlParams.get('title');
+    const employee = urlParams.get('employee');
+    const department = urlParams.get('department');
+    const subDepartment = urlParams.get('subDepartment');
+    const status = urlParams.get('status');
+    const type = urlParams.get('type');
+
+    if (number) {
+      document.getElementById('transfer_number').value = number;
+      document.getElementById('transfer_name').value = title;
+      departmentSelect.value = department;
+      subDepartmentSelect.value = subDepartment;
+      employeeSelect.value = employee;
+
+      // حالة التحويلة
+      document.querySelectorAll('.status-box').forEach(box => {
+        if (box.textContent.trim() === status) {
+          box.classList.add('active');
+        } else {
+          box.classList.remove('active');
+        }
+      });
+      
+
+      // نوع التحويلة
+      // ضبط نوع التحويلة
+
+
+
+
+
+
+
+
+      // تعديل
+      document.getElementById('is_edit').value = 'true';
+    }
+    // نوع التحويلة
+if (type) {
+  document.querySelectorAll('.type-box').forEach(box => {
+    const boxType = box.querySelector('.type-text')?.textContent.trim();
+    if (boxType === type) {
+      box.classList.add('active');
+    } else {
+      box.classList.remove('active');
+    }
+  });
+}
+  } catch (err) {
+    console.error("فشل في تحميل الفلاتر:", err);
+  }
+});
+
+</script>
+<script>
+  document.querySelector('.cancel-button').addEventListener('click', () => {
+    window.location.href = '/admin';
+  });
+
+</script>
+
+   <script src="static/scripts/toggle-actions.js" defer></script>
+
+  </body>
+  
+  </html>
