@@ -36,7 +36,8 @@ def init_db():
 
 @app.route('/')
 def home():
-    return 'Welcome to Baladyah Project API'
+    return render_template('index.html')
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -361,12 +362,11 @@ def add_transfer():
 
     return jsonify({"success": True, "message": "✅ تمت الإضافة أو التحديث بنجاح"}), 200
 
-@app.route('/index')
-def home_page():
-    return render_template('index.html')
+
 
 
 if __name__ == '__main__':
     init_db()
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
 
